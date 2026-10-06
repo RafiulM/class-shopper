@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Jev — Pilih Produk",
+  "short_name": "Jev",
+  "version": "0.2.0",
+  "description": "Tulis keinginanmu, Jev menandai produk yang cocok di Tokopedia dan Shopee.",
+  "action": {
+    "default_title": "Buka Jev"
+  },
+  "side_panel": {
+    "default_path": "src/sidepanel/index.html"
+  },
+  "options_ui": {
+    "page": "src/options/index.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": ["sidePanel", "storage"],
+  "host_permissions": ["https://openrouter.ai/*", "https://www.tokopedia.com/*", "https://shopee.co.id/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.tokopedia.com/*", "https://shopee.co.id/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

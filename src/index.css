@@ -1,0 +1,210 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/inter-tight";
+
+/* shadcn components ship dark: styles; bind them to a .dark class that is never set,
+   so the OS dark-mode preference cannot restyle this light-only UI. */
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Signal Lens design system (DesainPakeAI prototype) mapped onto shadcn roles.
+ * Light-only: the product and prototype define no dark theme.
+ *
+ * Extra roles beyond shadcn:
+ *   lens            pale-blue "Insight Lens" that links a desire phrase to evidence
+ *   primary-strong  dark sky blue for checked controls and pressed states (3:1+ on white)
+ *   positive        "Cocok" verdicts; warning = partial matches
+ *   match/mismatch  loud on-page verdict labels (store overlay + its preview); kept
+ *                   off the stores' own palette so they never read as store badges
+ */
+
+@theme inline {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Inter Tight Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-strong: var(--primary-strong);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-lens: var(--lens);
+  --color-lens-foreground: var(--lens-foreground);
+  --color-positive: var(--positive);
+  --color-positive-foreground: var(--positive-foreground);
+  --color-positive-muted: var(--positive-muted);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-muted: var(--warning-muted);
+  --color-match: var(--match);
+  --color-match-foreground: var(--match-foreground);
+  --color-match-muted: var(--match-muted);
+  --color-mismatch: var(--mismatch);
+  --color-mismatch-foreground: var(--mismatch-foreground);
+  --color-mismatch-muted: var(--mismatch-muted);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* compact rows 4 · inputs 6 · actions 8 · data cards 10 · shell 16 */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: var(--radius);
+  --radius-xl: 10px;
+  --radius-2xl: 16px;
+
+  --shadow-card: 0 4px 16px rgb(0 0 0 / 5%);
+  --shadow-overlay: 0 8px 24px rgb(0 0 0 / 8%);
+
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --text-label: 11px;
+  --text-label--line-height: 16px;
+  --text-heading-sm: 20px;
+  --text-heading-sm--line-height: 24px;
+  --text-heading-sm--letter-spacing: -0.1px;
+  --text-heading-md: 24px;
+  --text-heading-md--line-height: 30px;
+  --text-heading-md--letter-spacing: -0.4px;
+  --text-heading-lg: 32px;
+  --text-heading-lg--line-height: 40px;
+  --text-heading-lg--letter-spacing: -0.8px;
+}
+
+:root {
+  --radius: 8px;
+
+  --background: #ffffff;
+  --foreground: #0c0a09;
+  --card: #ffffff;
+  --card-foreground: #0c0a09;
+  --popover: #ffffff;
+  --popover-foreground: #0c0a09;
+  --primary: #3ba6f1;
+  --primary-foreground: #0c0a09;
+  --primary-strong: #0a558a;
+  --secondary: #f5f5f4;
+  --secondary-foreground: #0c0a09;
+  --muted: #f5f5f4;
+  --muted-foreground: #78716c;
+  --faint: #9ca3af;
+  --accent: #f5f5f4;
+  --accent-foreground: #0c0a09;
+  --destructive: #ac3131;
+  --border: #e7e5e4;
+  --input: #d6d3d1;
+  --ring: #0c0a09;
+
+  --lens: #e8f4fb;
+  --lens-foreground: #0a558a;
+  --positive: #16a34a;
+  --positive-foreground: #0e652e;
+  --positive-muted: #e8f6ed;
+  --warning: #d97706;
+  --warning-foreground: #985304;
+  --warning-muted: #faefe1;
+  /* Mirrors the hex values in src/content/overlay.ts. */
+  --match: #84cc16;
+  --match-foreground: #1a2e05;
+  --match-muted: #f2fbe3;
+  --mismatch: #dc2626;
+  --mismatch-foreground: #7f1d1d;
+  --mismatch-muted: #fef2f2;
+
+  --chart-1: #3ba6f1;
+  --chart-2: #22c55e;
+  --chart-3: #a855f7;
+  --chart-4: #d97706;
+  --chart-5: #78716c;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0c0a09;
+  --sidebar-primary: #3ba6f1;
+  --sidebar-primary-foreground: #0c0a09;
+  --sidebar-accent: #f5f5f4;
+  --sidebar-accent-foreground: #0c0a09;
+  --sidebar-border: #e7e5e4;
+  --sidebar-ring: #0c0a09;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    color-scheme: light;
+  }
+  body {
+    @apply bg-background text-sm/[1.64] text-foreground antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-heading font-medium;
+  }
+  ::selection {
+    @apply bg-lens text-lens-foreground;
+  }
+  /* Native elements outside shadcn primitives: 2px ink ring, 2px offset. */
+  a:focus-visible,
+  summary:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/*
+ * Chrome injects `body { font-family: system-ui; font-size: 75% }` into extension
+ * pages. That rule is unlayered, so it beats everything in @layer base; restate the
+ * body type here, outside any layer (and more specific than `body`).
+ */
+html body {
+  @apply font-sans text-sm/[1.64];
+}
+
+@keyframes jev-indeterminate {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(260%);
+  }
+}
